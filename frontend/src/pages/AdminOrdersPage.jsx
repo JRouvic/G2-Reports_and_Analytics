@@ -23,8 +23,12 @@ export default function AdminOrdersPage() {
     setLoading(true);
     setError('');
     try {
-      const ordRes = await api.get('/orders');
+      const [ordRes, rdrRes] = await Promise.all([
+        api.get('/orders'),
+        api.get('/riders/free'),
+      ]);
       setOrders(ordRes.orders || []);
+      setFreeList(rdrRes.riders || []);
     } catch (e) {
       setError(e.message || 'Failed to load orders.');
     } finally {
@@ -54,6 +58,17 @@ export default function AdminOrdersPage() {
     }
   }
 
+  async function assign(id) {
+    const riderId = riderSel[id] ?? freeList[0]?.id;
+    if (!riderId) return;
+    try {
+      await api.patch(`/orders/${id}/assign`, { rider_id: riderId });
+      await loadData();
+    } catch (e) {
+      setError(e.message || 'Failed to assign rider.');
+    }
+  }
+
   function openReject(id) {
     setDecId(id); setReason(''); setDecErr('');
   }
@@ -71,7 +86,7 @@ export default function AdminOrdersPage() {
 
   return (
     <AdminLayout>
-      <AdminPageHeader title="Order Management" subtitle="Accept or reject each customer order." />
+      <AdminPageHeader title="Order Management" subtitle="Accept or reject each order. Once accepted, assign a rider." />
       <Alert text={error} />
 
       <OrderTable
@@ -83,6 +98,7 @@ export default function AdminOrdersPage() {
         riderSel={riderSel}
         onRiderSelect={(id, val) => setRiderSel(r => ({ ...r, [id]: val }))}
         onAccept={accept}
+        onAssign={assign}
         openReject={openReject}
         open={open}
         onToggle={toggle}

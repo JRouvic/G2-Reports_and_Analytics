@@ -77,3 +77,21 @@ export const decline = async (req, res) => {
         });
     }
 }
+
+export const assign = async (req, res) => {
+    const { id } = req.params;
+    const { rider_id } = req.body;
+
+    try {
+        const result = await orderService.assignRider(parseInt(id), parseInt(rider_id));
+        res.status(200).json({
+            success: true,
+            message: result
+        });
+    } catch(e) {
+        console.log(e);
+        res.status(500).json({
+            error: `${e.message || "Internal Server Error"}`
+        });
+    }
+}

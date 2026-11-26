@@ -64,6 +64,18 @@ const OrderTable = ({
                           <button className="button secondary small delete" onClick={() => openReject(o.id)}>Reject</button>
                         </>
                       )}
+                      {o.status === 'Accepted' && (
+                        freeList.length > 0 ? (
+                          <>
+                            <select
+                              value={riderSel[o.id] ?? freeList[0]?.id}
+                              onChange={e => onRiderSelect(o.id, Number(e.target.value))}>
+                              {freeList.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
+                            </select>
+                            <button className="button small" onClick={() => onAssign(o.id)}>Assign</button>
+                          </>
+                        ) : <span className="muted small">No rider free</span>
+                      )}
                       <button className="button secondary small" onClick={() => onToggle(o.id)}>
                         {open[o.id] ? 'Hide' : 'View'}
                       </button>
