@@ -3,6 +3,10 @@ import express from 'express';
 
 const promoRoute = express.Router();
 
-promoRoute.post('/',         promoController.create);
+ promoRoute.get('/',          promoController.getAll);
+ promoRoute.post('/',         promoController.create);
+ promoRoute.post('/validate', promoController.validate);
+ promoRoute.patch('/:code',   promoController.toggle);
+ promoRoute.delete('/:code',  promoController.remove);
 
 export default promoRoute;

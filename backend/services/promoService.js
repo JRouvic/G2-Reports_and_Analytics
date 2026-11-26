@@ -78,3 +78,30 @@ export const deletePromo = async (code) => {
     await promoModel.remove(code);
     return 'Promo code deleted.';
 }
+
+// validate
+export const validatePromo = async (code, subtotal) => {
+    if (!code) {
+        throw new Error('Promo code is required.');
+    }
+
+    const existing = await doesPromoExist(code.trim().toUpperCase());
+    if (!existing.result) {
+        throw new Error('This promo code is invalid or has expired.');
+    }
+
+    const p = existing.promo;
+    if (!p.enabled || p.expires_on <= today()) {
+        throw new Error('This promo code is invalid or has expired.');
+    }
+
+   if (p.usage_limit && p.used_count >= p.usage_limit) {
+      throw new Error('This promo code has reached its usage limit.');
+    }
+
+    if (subtotal < p.min_order) {
+        throw new Error(`Minimum order for this code is ₱${Number(p.min_order).toFixed(2)}.`);
+    }
+
+    return p;
+}
