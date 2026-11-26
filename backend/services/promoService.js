@@ -10,6 +10,13 @@ const doesPromoExist = async (code) => {
     return { result: false, promo: undefined };
 }
 
+
+// get all
+export const fetchAllPromos = async () => {
+    const promos = await promoModel.fetch();
+    return promos;
+}
+
 // insert
 export const createPromo = async (promo) => {
     if (!promo.code || !promo.code.trim()) {
@@ -48,4 +55,26 @@ export const createPromo = async (promo) => {
     });
 
     return 'Promo code created.';
+}
+
+// toggle
+export const togglePromo = async (code, enabled) => {
+   const existing = await doesPromoExist(code);
+    if (!existing.result) {
+        throw new Error('Promo code does not exist.');
+    }
+
+    await promoModel.update({ code, enabled });
+    return `Promo code ${enabled ? 'enabled' : 'disabled'}.`;
+}
+
+// delete
+export const deletePromo = async (code) => {
+    const existing = await doesPromoExist(code);
+   if (!existing.result) {
+        throw new Error('Promo code does not exist.');
+    }
+
+    await promoModel.remove(code);
+    return 'Promo code deleted.';
 }
