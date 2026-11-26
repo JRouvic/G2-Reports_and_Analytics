@@ -219,6 +219,18 @@ export const assignRider = async (id, riderId) => {
     return 'Rider assigned.';
 }
 
+// confirm payment
+export const confirmCash = async (id) => {
+    const existing = await doesOrderExist(id);
+    if (!existing.result) {
+        throw new Error('Order does not exist.');
+    }
+
+    await orderModel.updateCash(id);
+    await orderLogModel.insert({ orderId: id, note: 'Rider confirmed cash collected' });
+    return 'Cash confirmed.';
+}
+
 // upload proof
 export const uploadProof = async (id, proofImage) => {
     const existing = await doesOrderExist(id);

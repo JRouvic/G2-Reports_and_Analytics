@@ -98,6 +98,23 @@ export const assign = async (req, res) => {
     }
 }
 
+export const cashCollected = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const result = await orderService.confirmCash(parseInt(id));
+        res.status(200).json({
+            success: true,
+            message: result
+        });
+    } catch(e) {
+        console.log(e);
+        res.status(500).json({
+            error: `${e.message || "Internal Server Error"}`
+        });
+    }
+}
+
 export const uploadProof = async (req, res) => {
     const { id } = req.params;
     const { proof_image } = req.body;
