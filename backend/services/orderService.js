@@ -21,6 +21,11 @@ const enrich = async (orders) => {
     })));
 }
 
+export const fetchOrdersByUser = async (userId) => {
+    const orders = await orderModel.findOrdersByUser(userId);
+    return enrich(orders);
+}
+
 // insert
 export const placeOrder = async (userId, customerName, body) => {
     if (!body.address) {
