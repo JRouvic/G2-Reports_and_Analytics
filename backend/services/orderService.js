@@ -218,3 +218,33 @@ export const assignRider = async (id, riderId) => {
     await orderLogModel.insert({ orderId: id, note: `Assigned to ${rider[0].name}` });
     return 'Rider assigned.';
 }
+
+// upload proof
+export const uploadProof = async (id, proofImage) => {
+    const existing = await doesOrderExist(id);
+    if (!existing.result) {
+        throw new Error('Order does not exist.');
+    }
+
+    await orderModel.updateProof(id, proofImage);
+    await orderLogModel.insert({ orderId: id, note: 'Rider uploaded proof of delivery' });
+    return 'Proof uploaded.';
+}
+
+// mark delivered
+export const markDelivered = async (id) => {
+    const existing = await doesOrderExist(id);
+    if (!existing.result) {
+        throw new Error('Order does not exist.');
+    }
+    if (!existing.order.cash_collected) {
+        throw new Error('Cash must be confirmed first.');
+    }
+    if (!existing.order.proof_image) {
+        throw new Error('Proof of delivery must be uploaded first.');
+    }
+
+    await orderModel.update({ id, status: 'Delivered' });
+    await orderLogModel.insert({ orderId: id, note: 'Rider marked order as delivered' });
+    return 'Order delivered.';
+}
