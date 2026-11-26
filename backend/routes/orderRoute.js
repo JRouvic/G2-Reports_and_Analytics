@@ -9,6 +9,7 @@ orderRoute.post('/',             orderController.place);
 orderRoute.patch('/:id/accept',  orderController.accept);
 orderRoute.patch('/:id/decline', orderController.decline);
 orderRoute.patch('/:id/assign',  orderController.assign);
+orderRoute.patch('/:id/cash',    orderController.cashCollected);
 orderRoute.patch('/:id/proof',   orderController.uploadProof);
 orderRoute.patch('/:id/deliver', orderController.deliver);
 
