@@ -3,6 +3,7 @@ import * as orderItemModel from '../models/orderItemModel.js';
 import * as orderLogModel  from '../models/orderLogModel.js';
 import * as itemModel from '../models/itemModel.js';
 import * as promoModel from '../models/promoModel.js';
+import * as riderModel     from '../models/riderModel.js';
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -192,3 +193,23 @@ export const declineOrder = async (id, reason) => {
 
     return 'Order declined.';
 };
+
+// assign rider
+export const assignRider = async (id, riderId) => {
+    const existingOrder = await doesOrderExist(id);
+    if (!existingOrder.result) {
+        throw new Error('Order does not exist.');
+    }
+    if (existingOrder.order.status !== 'Accepted') {
+        throw new Error('Only accepted orders can be assigned a rider.');
+    }
+
+    const rider = await riderModel.findRiderById(riderId);
+    if (!rider.length || rider[0].status !== 'Active') {
+        throw new Error('Rider is not available.');
+    }
+
+    await orderModel.updateRider(id, riderId);
+    await orderLogModel.insert({ orderId: id, note: `Assigned to ${rider[0].name}` });
+    return 'Rider assigned.';
+}

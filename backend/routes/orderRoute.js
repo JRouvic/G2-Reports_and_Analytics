@@ -8,5 +8,6 @@ orderRoute.get('/mine',          orderController.getMine);
 orderRoute.post('/',             orderController.place);
 orderRoute.patch('/:id/accept',  orderController.accept);
 orderRoute.patch('/:id/decline', orderController.decline);
+orderRoute.patch('/:id/assign',  orderController.assign);
 
 export default orderRoute;
