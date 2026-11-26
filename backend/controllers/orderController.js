@@ -97,3 +97,38 @@ export const assign = async (req, res) => {
         });
     }
 }
+
+export const uploadProof = async (req, res) => {
+    const { id } = req.params;
+    const { proof_image } = req.body;
+
+    try {
+        const result = await orderService.uploadProof(parseInt(id), proof_image);
+        res.status(200).json({
+            success: true,
+            message: result
+        });
+    } catch(e) {
+        console.log(e);
+        res.status(500).json({
+            error: `${e.message || "Internal Server Error"}`
+        });
+    }
+}
+
+export const deliver = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const result = await orderService.markDelivered(parseInt(id));
+        res.status(200).json({
+            success: true,
+            message: result
+        });
+    } catch(e) {
+        console.log(e);
+        res.status(500).json({
+            error: `${e.message || "Internal Server Error"}`
+        });
+    }
+}
