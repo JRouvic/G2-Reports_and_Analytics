@@ -11,7 +11,9 @@ export const getMine = async (req, res) => {
         if (!user) {
             return res.status(401).json({ error: 'Please log in.' });
         }
-        const orders = await orderService.fetchOrdersByUser(user.id);
+        const orders = user.role === 'r'
+            ? await orderService.fetchOrdersByRider(user.riderId)
+            : await orderService.fetchOrdersByUser(user.id);
         res.status(200).json({
             success: true,
             orders
