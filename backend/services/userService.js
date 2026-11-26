@@ -53,3 +53,30 @@ export const createAccount = async (user) => {
 
     return 'Account created successfully!';
 }
+
+// login
+export const login = async (user) => {
+    if (!user.email || !user.password) {
+        throw new Error('Email and password are required.');
+    }
+
+    const existing = await doesUserExist(user.email);
+    if (!existing.result) {
+        throw new Error('No account found with this email.');
+    }
+
+    const isCorrect = await bcrypt.compare(user.password, existing.user.password);
+    if (!isCorrect) {
+        throw new Error('Incorrect password.');
+    }
+
+const { id, name, email, role } = existing.user;
+
+    let riderId = null;
+    if (role === 'r') {
+        const rider = await riderModel.findRiderByUserId(id);
+        riderId = rider[0].id;
+    }
+
+    return { id, name, email, role, riderId };
+}
