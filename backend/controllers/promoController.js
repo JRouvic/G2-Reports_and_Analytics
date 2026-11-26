@@ -57,3 +57,25 @@ export const remove = async (req, res) => {
         });
     }
 }
+
+export const validate = async (req, res) => {
+    const { code, subtotal } = req.body;
+
+    try {
+        const p = await promoService.validatePromo(code, subtotal);
+      const disc = Math.min(
+           Number(subtotal),
+           Math.round(p.type === '%' ? subtotal * p.value / 100 : p.value)
+        );
+        res.status(200).json({
+            success:  true,
+            discount: disc,
+            promo:    p,
+        });
+    } catch(e) {
+        console.log(e);
+        res.status(500).json({
+            error: `${e.message || "Internal Server Error"}`
+        });
+    }
+}
