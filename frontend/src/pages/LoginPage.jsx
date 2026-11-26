@@ -19,12 +19,6 @@ const LoginPage = () => {
   const [errors,   setErrors]   = useState({});
   const [loading,  setLoading]  = useState(false);
 
-  useEffect(() => {
-    const session = localStorage.getItem('3a_kitchen_user');
-    const role    = localStorage.getItem('3a_kitchen_role');
-    if (session && role) navigate(HOME[role], { replace: true });
-  }, []);
-
   const handleEmailChange    = v => { setEmail(v);    setErrors(x => ({ ...x, email: '' })); };
   const handlePasswordChange = v => { setPassword(v); setErrors(x => ({ ...x, password: '' })); };
 

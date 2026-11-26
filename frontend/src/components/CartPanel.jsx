@@ -1,3 +1,5 @@
+import { M } from '../store/db';
+
 const CartPanel = ({
   cartEntries, resolveCart,
   subtotal, fee, rushFee, total, discount, promo, promoApplied,
