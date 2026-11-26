@@ -174,7 +174,7 @@ export const acceptOrder = async (id) => {
     return 'Order accepted.';
 };
 
-// decline
+// decline orders
 export const declineOrder = async (id, reason) => {
     if (!reason || !reason.trim()) {
         throw new Error('Reason is required.');
