@@ -1,0 +1,22 @@
+.collect {
+  display: flex; justify-content: space-between;
+  gap: 10px; background: var(--soft);
+  border-radius: 10px; padding: 12px; align-items: center;
+}
+.collect b:last-child { font-size: 22px; }
+
+.cash-row { display: flex; gap: 10px; align-items: flex-start; }
+.cash-row input { margin-top: 0; }
+
+.good {
+  background: var(--okb); color: var(--ok);
+  border-radius: 10px; padding: 11px 14px; font-weight: 500;
+}
+.rush-rider-note {
+  background: #FFF7ED;
+  border: 1.5px solid #F97316;
+  color: #C2410C;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+}
