@@ -1,5 +1,6 @@
 import * as orderModel from '../models/orderModel.js';
 import * as orderItemModel from '../models/orderItemModel.js';
+import * as orderLogModel  from '../models/orderLogModel.js';
 import * as itemModel from '../models/itemModel.js';
 import * as promoModel from '../models/promoModel.js';
 
@@ -18,6 +19,7 @@ const enrich = async (orders) => {
     return Promise.all(orders.map(async (o) => ({
         ...o,
         items: await orderItemModel.findByOrderId(o.id),
+        logs:  await orderLogModel.findByOrderId(o.id),
     })));
 };
 
@@ -140,6 +142,9 @@ export const placeOrder = async (userId, customerName, body) => {
         orderId,
         items: enrichedItems
     });
+    await orderLogModel.insert({ 
+        orderId, 
+        note: 'Order placed by customer' });
 
     return orderId;
 };
@@ -157,6 +162,8 @@ export const acceptOrder = async (id) => {
     }
 
     await orderModel.update({ id, status: 'Accepted' });
+    await orderLogModel.insert({ orderId: id, note: 'Accepted by admin' });
+
     return 'Order accepted.';
 };
 
@@ -177,6 +184,9 @@ export const declineOrder = async (id, reason) => {
         status: 'Declined',
         declineReason: reason.trim()
     });
+     await orderLogModel.insert({ 
+        orderId: id, 
+        note: 'Declined by admin' });
 
     return 'Order declined.';
 };

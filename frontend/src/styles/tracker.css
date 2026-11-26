@@ -1,0 +1,129 @@
+.trk {
+  background: white;
+  border: 1px solid var(--ln);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.st-title { font-weight: 800; font-size: 18px; }
+
+.stp {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.stp > div {
+  position: relative;
+  text-align: center;
+  font-size: 12px;
+}
+
+.stp > div::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: -50%;
+  width: 100%;
+  height: 2px;
+  background: var(--ln);
+}
+
+.stp > div:first-child::before { display: none; }
+.stp > div.on::before { background: #16A34A; }
+
+.cur { font-weight: 700; }
+
+.dot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 18px;
+  height: 18px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  border: 2px solid var(--ln);
+  background: white;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.dot.dn { background: #16A34A; border-color: #16A34A; }
+.dot.cu { background: #16A34A; border-color: #16A34A; box-shadow: 0 0 0 3px rgba(22,163,74,.25); }
+
+.nt {
+  background: var(--okb);
+  color: var(--ok);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+/* ── Timeline ── */
+.tl { display: flex; flex-direction: column; }
+
+.ev {
+  display: grid;
+  grid-template-columns: 84px 14px 1fr;
+  gap: 12px;
+  padding-bottom: 16px;
+  position: relative;
+}
+
+.ev:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 102px;
+  top: 14px;
+  bottom: 0;
+  width: 1px;
+  background: var(--ln);
+}
+
+.evp {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ln);
+  margin-top: 4px;
+  justify-self: center;
+  position: relative;
+  z-index: 1;
+}
+.evp.g { background: #16A34A; }
+
+.evd { color: var(--m); line-height: 1.3; }
+
+.nw {
+  background: #16A34A;
+  color: white;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 5px;
+}
+
+.gj {
+  border-top: 1px solid var(--ln);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.proof-img { max-width: 220px; max-height: 160px; border-radius: 10px; display: block; margin-top: 8px; }
+.proof-ph {
+  background: var(--soft);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--m);
+  display: inline-block;
+  margin-top: 8px;
+}
