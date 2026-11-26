@@ -7,7 +7,7 @@ import { resolve } from 'path';
 
 loadEnv({ path: resolve(process.cwd(), '../.env') });
 
-const pending = globalThis.__3a_otp_pending ?? (globalThis.__3a_otp_pending = new Map()); // survives HMR restarts
+const pending = globalThis.__3a_otp_pending ?? (globalThis.__3a_otp_pending = new Map());
 const sha = c => crypto.createHash('sha256').update(String(c)).digest('hex');
 const clean = e => String(e || '').trim().toLowerCase();
 
