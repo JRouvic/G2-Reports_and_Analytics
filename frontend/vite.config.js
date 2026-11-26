@@ -105,7 +105,7 @@ function otpPlugin() {
 }
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), otpPlugin()],
   server: {
     proxy: {
       '/api-backend': {
