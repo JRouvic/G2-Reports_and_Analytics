@@ -145,6 +145,7 @@ export const placeOrder = async (userId, customerName, body) => {
     await orderLogModel.insert({ 
         orderId, 
         note: 'Order placed by customer' });
+    if (usedCode) await promoModel.incrementUsed(usedCode);
 
     return orderId;
 };
@@ -184,9 +185,10 @@ export const declineOrder = async (id, reason) => {
         status: 'Declined',
         declineReason: reason.trim()
     });
-     await orderLogModel.insert({ 
+    await orderLogModel.insert({ 
         orderId: id, 
         note: 'Declined by admin' });
+    if (existing.order.promo_code) await promoModel.decrementUsed(existing.order.promo_code);
 
     return 'Order declined.';
 };
