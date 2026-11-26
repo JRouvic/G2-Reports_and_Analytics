@@ -53,6 +53,11 @@ const OrderTable = ({
                         ))}
                       </div>
                     )}
+                    {o.status === 'Out for delivery' && (
+                      <div className="muted small">
+                        {o.cash_collected ? 'Cash collected' : 'Awaiting cash'} · {o.proof_image ? 'Proof uploaded' : 'No proof yet'}
+                      </div>
+                    )}
                     {o.decline_reason && <div className="muted small">{o.decline_reason}</div>}
                   </td>
                   <td>{o.rider_name || '—'}</td>
