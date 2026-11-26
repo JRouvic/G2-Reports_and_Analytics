@@ -75,6 +75,9 @@ const { id, name, email, role } = existing.user;
     let riderId = null;
     if (role === 'r') {
         const rider = await riderModel.findRiderByUserId(id);
+        if (!rider.length || rider[0].status === 'Resigned') {
+            throw new Error('Your rider account has been deactivated. Please contact the admin.');
+       }
         riderId = rider[0].id;
     }
 
