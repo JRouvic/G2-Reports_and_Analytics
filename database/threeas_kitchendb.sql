@@ -153,3 +153,12 @@ INSERT IGNORE INTO bundles (id, name, description, price, available) VALUES
 INSERT IGNORE INTO bundle_items (bundle_id, item_id, quantity) VALUES
   (1, 5, 1), (1, 2, 1), (1, 4, 1), (1, 3, 8),
   (2, 5, 2), (2, 1, 1), (2, 2, 2), (2, 4, 2), (2, 3, 15);
+
+-- env 
+-- GMAIL_USER=24-12482@g.batstate-u.edu.ph
+-- GMAIL_APP_PASS=mixh xbbo wamx yryh
+
+-- DB_HOST=127.0.0.1
+-- DB_USER=root
+-- DB_PASS=
+-- DB_NAME=kitchen_3as
