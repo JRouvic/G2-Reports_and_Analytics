@@ -47,6 +47,7 @@ export const remove = async (code) => {
 
 export const incrementUsed = async (code) => {
     await pool.query(
+        "UPDATE promos SET used_count = used_count + 1 WHERE code = ?",
         [code]
     );
 }
