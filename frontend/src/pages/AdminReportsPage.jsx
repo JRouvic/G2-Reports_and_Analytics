@@ -92,6 +92,7 @@ export default function AdminReportsPage() {
   return (
     <AdminLayout>
       <AdminPageHeader title="Reports and Analytics" subtitle="Revenue, profit, expenses, and net profit.">
+       <button className="button noprint" onClick={() => window.print()}>Print / Export PDF</button>
       </AdminPageHeader>
 
       <Alert text={error} />
