@@ -4,9 +4,11 @@ const modules = import.meta.glob('./pages/*.jsx', { eager: true });
 
 const ROUTES = {
   // Auth
-  LoginPage:    '/login',
-  RegisterPage: '/register',
-  OtpPage:      '/otp',
+  LoginPage:         '/login',
+  RegisterPage:      '/register',
+  OtpPage:           '/otp',
+  ForgotPasswordPage: '/forgot-password',
+  ResetPasswordPage:  '/reset-password',
 
   // Customer
   MenuPage:     '/menu',
