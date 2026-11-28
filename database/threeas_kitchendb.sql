@@ -161,4 +161,4 @@ INSERT IGNORE INTO bundle_items (bundle_id, item_id, quantity) VALUES
 -- DB_HOST=127.0.0.1
 -- DB_USER=root
 -- DB_PASS=
--- DB_NAME=kitchen_3as
+-- DB_NAME=threeas_kitchendb
