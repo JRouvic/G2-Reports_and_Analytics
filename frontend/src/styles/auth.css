@@ -57,16 +57,16 @@ body { min-height: 100vh; }
   gap: 8px;
 }
 
-/* Password show/hide toggle */
+
 .pw-wrap {
   position: relative;
   display: flex;
   align-items: center;
 }
 .pw-wrap input {
-  padding-right: 44px; /* room for the button */
+  padding-right: 44px; 
 }
-/* hide the browser's built-in eye icon (Edge/Chrome/IE) */
+
 .pw-wrap input::-ms-reveal,
 .pw-wrap input::-ms-clear,
 .pw-wrap input::-webkit-credentials-auto-fill-button {

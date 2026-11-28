@@ -1,9 +1,8 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const EyeIcon = ({ open }) =>
   open ? (
-    /* eye-open */
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
       fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
       aria-hidden="true">
@@ -11,7 +10,6 @@ const EyeIcon = ({ open }) =>
       <circle cx="12" cy="12" r="3"/>
     </svg>
   ) : (
-    /* eye-off */
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
       fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
       aria-hidden="true">
@@ -66,10 +64,13 @@ const LoginForm = ({ email, setEmail, password, setPassword, errors, loading, no
             </div>
           </label>
           {errors.password && <p className="er">{errors.password}</p>}
+          <div style={{ textAlign: 'right', marginTop: '6px' }}>
+            <Link to="/forgot-password" className="small">Forgot password?</Link>
+          </div>
         </div>
 
         <button type="submit" className="button" disabled={loading}>
-          {loading ? 'Logging in…' : 'Log in'}
+          {loading ? 'Logging in...' : 'Log in'}
         </button>
 
         <p className="center muted">

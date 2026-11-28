@@ -66,3 +66,14 @@ export const me = (req, res) => {
     }
     res.status(200).json(req.session.user);
 }
+
+export const resetPassword = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const result = await userService.resetPassword(email, password);
+        res.status(200).json({ success: true, message: result });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({ error: e.message || 'Internal Server Error' });
+    }
+}

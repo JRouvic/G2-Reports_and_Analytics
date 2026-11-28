@@ -83,3 +83,24 @@ const { id, name, email, role } = existing.user;
 
     return { id, name, email, role, riderId };
 }
+
+// reset password
+export const resetPassword = async (email, password) => {
+    if (!email || !password) {
+        throw new Error('Email and password are required.');
+    }
+
+    if (password.length < 6) {
+        throw new Error('Password must be at least 6 characters.');
+    }
+
+    const existing = await doesUserExist(email);
+    if (!existing.result) {
+        throw new Error('No account found with this email.');
+    }
+
+    const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+    await userModel.updatePassword(existing.user.id, hash);
+
+    return 'Password updated successfully.';
+}
